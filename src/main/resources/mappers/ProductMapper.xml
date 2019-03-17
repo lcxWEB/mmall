@@ -176,4 +176,18 @@
       update_time = NOW()
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="listProduct" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM mmall_product
+    <where>
+      <if test="searchText != null and searchText!='' ">
+        AND id = #{searchText}
+        OR name LIKE CONCAT('%', #{searchText}, '%')
+      </if>
+    </where>
+    ORDER BY id ASC
+  </select>
+
 </mapper>
